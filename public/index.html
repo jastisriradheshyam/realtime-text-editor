@@ -8,12 +8,18 @@
 <script src="/socket.io.js"></script>
 
 <body>
+    <div>
+        Count : <span id="count"></span>
+        </br>
+    </div>
     <textarea name="text_area" id="input_area" cols="30" rows="10"></textarea>
     <script>
         window.addEventListener('load', function () {
             // hold the text context
             let text = "";
+            let oldCount = 0;
             const inputAreaCtx = document.getElementById('input_area');
+            const countCtx = document.getElementById('count');
 
             const socket = io();
 
@@ -57,8 +63,13 @@
             socket.emit('joinEditor', editorID);
             // upon text update from others, update the text area
             socket.on('remoteInput', updateText);
+            socket.on('latestCount', (data) => {
+                if (oldCount !== data.totalUsers) {
+                    oldCount = data.totalUsers;
+                    countCtx.innerHTML = data.totalUsers
+                }
+            });
 
-            
             // changes by user
             const onCurrentUserChange = function () {
                 // check changes
