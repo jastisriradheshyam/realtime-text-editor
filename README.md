@@ -12,6 +12,7 @@
 ## Features
 - Session maintenance (editor session)
 - Selection memory (so that one person is working on one line then another person can work on different line, with certain time delay, it has to be improved)
+- Number of users in the editor
 
 ## Limitations
 
